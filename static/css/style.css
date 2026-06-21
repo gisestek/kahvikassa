@@ -25,6 +25,28 @@
   --font-display: "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
+/* Maavoimat (M05): sama muuttujarakenne, ja lisäksi pikselöity camo-kuvio
+   taustalla. Kuvio on yksi käsin piirretty SVG-tiili data-URI:na, ei
+   ulkoista kuvatiedostoa — toistetaan CSS background-repeatilla. */
+[data-theme="maavoimat"] {
+  --color-bg: rgb(75, 83, 32);
+  --color-bg-dark: rgb(47, 47, 31);
+  --color-black: rgb(28, 28, 20);
+  --color-dark-red: rgb(92, 74, 51);
+  --color-gold: rgb(168, 153, 104);
+  --color-gold-bright: rgb(212, 200, 150);
+  --color-text: rgb(233, 228, 208);
+  --color-danger: rgb(139, 58, 58);
+  --font-display: Tahoma, Verdana, sans-serif;
+}
+
+[data-theme="maavoimat"] body {
+  background-color: rgb(75, 83, 32);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' fill='rgb(75,83,32)'/%3E%3Crect x='0' y='0' width='16' height='8' fill='rgb(138,139,107)'/%3E%3Crect x='16' y='0' width='8' height='16' fill='rgb(47,47,31)'/%3E%3Crect x='32' y='0' width='16' height='8' fill='rgb(92,74,51)'/%3E%3Crect x='48' y='8' width='16' height='16' fill='rgb(138,139,107)'/%3E%3Crect x='8' y='16' width='8' height='8' fill='rgb(92,74,51)'/%3E%3Crect x='24' y='16' width='16' height='8' fill='rgb(47,47,31)'/%3E%3Crect x='0' y='24' width='8' height='16' fill='rgb(47,47,31)'/%3E%3Crect x='16' y='24' width='16' height='8' fill='rgb(92,74,51)'/%3E%3Crect x='40' y='24' width='8' height='16' fill='rgb(138,139,107)'/%3E%3Crect x='48' y='32' width='16' height='16' fill='rgb(47,47,31)'/%3E%3Crect x='0' y='40' width='16' height='8' fill='rgb(138,139,107)'/%3E%3Crect x='24' y='32' width='8' height='16' fill='rgb(92,74,51)'/%3E%3Crect x='8' y='48' width='16' height='8' fill='rgb(47,47,31)'/%3E%3Crect x='32' y='48' width='16' height='16' fill='rgb(138,139,107)'/%3E%3Crect x='0' y='56' width='8' height='8' fill='rgb(92,74,51)'/%3E%3C/svg%3E");
+  background-size: 96px 96px;
+  background-repeat: repeat;
+}
+
 * {
   box-sizing: border-box;
 }
