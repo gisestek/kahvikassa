@@ -98,6 +98,7 @@ luonnollista kotia.
 | monthly_fee_active    | boolean        | Onko kuukausimaksu käytössä |
 | signal_sender_number  | varchar(32), nullable  | Yliajaa `.env`:n `SIGNAL_SENDER_NUMBER`:n, kun asetettu |
 | signal_group_id       | varchar(255), nullable | Yliajaa `.env`:n `SIGNAL_GROUP_ID`:n, kun asetettu |
+| active_theme          | varchar(50)    | Tiedostonimen vartalo `static/css/themes/`-kansiossa (oletus "gootti") |
 
 Kuukausimaksun veloitus ei ole ajastettu — ylläpitäjä käynnistää sen manuaalisesti
 ylläpitopaneelista, joka kirjaa MONTHLY_FEE-tapahtuman jokaiselle aktiiviselle

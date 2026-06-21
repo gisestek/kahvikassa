@@ -1,0 +1,13 @@
+/* THEME_NAME: Moderni (teräksenharmaa) */
+:root {
+  --color-bg: #2b2f33;
+  --color-bg-dark: #16181a;
+  --color-black: #0f1112;
+  --color-dark-red: #3d4348;
+  --color-gold: #8a97a3;
+  --color-gold-bright: #cfd6dc;
+  --color-text: #e8eaed;
+  --color-danger: #b3433a;
+  --color-panel-bg: rgba(10, 12, 14, 0.6);
+  --font-display: "Segoe UI", system-ui, -apple-system, sans-serif;
+}

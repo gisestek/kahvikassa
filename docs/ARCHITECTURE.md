@@ -66,6 +66,23 @@ absoluuttinen totuus. Tilastot ja analytiikka (`analytics_service.py`), mukaan
 lukien kahvipannujen klusterointiheuristiikka, lasketaan tapahtumalokista
 pyynnön hetkellä eivätkä koskaan kirjoita takaisin tietokantaan.
 
+## Teemat
+
+Visuaalinen ilme on jaettu kahteen tasoon: `static/css/base.css` (rakenne ja
+komponentit, ei väriarvoja — kaikki nojaa `var(--color-*)`-muuttujiin) ja
+`static/css/themes/*.css` (yksi tiedosto per teema, sisältää vain `:root`-värit
+ja fontin, plus teemakohtaisia lisäyksiä kuten Maavoimat-teeman camo-tausta).
+Uusi teema = uusi tiedosto kansioon, ei koodimuutosta — Asetukset-sivun
+pudotusvalikko lukee kansion sisällön ajossa (`theme_service.list_available_themes`).
+
+Aktiivinen teema ei ole selainkohtainen: ylläpitäjä valitsee sen Asetuksista,
+palvelin kopioi valitun tiedoston sisällön `static/css/active-theme.css`:ksi
+(jonka kaikki sivut lataavat `base.css`:n jälkeen) ja tallentaa valinnan
+`app_settings.active_theme`-sarakkeeseen. Koska `active-theme.css` on
+gitignoroitu generoitu tiedosto, se rakennetaan uudelleen tietokannan
+perusteella aina sovelluksen käynnistyessä (`main.py`:n startup-hook) — fresh
+git clone toimii ilman erillistä askelta.
+
 ## Signal-ilmoitukset
 
 `app/services/notification_service.py` lähettää valinnaisia Signal-ryhmäviestejä

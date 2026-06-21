@@ -754,27 +754,31 @@
   }
 
   // ---------------- Theme selector ----------------
-  // New themes only need a new <option> here plus a matching
-  // [data-theme="..."] block in style.css — nothing else changes.
-  function initThemeToggle() {
+  // Themes are discovered server-side from static/css/themes/*.css — adding
+  // a new theme is just dropping a file there, no code change needed here.
+  async function initThemeToggle() {
     const select = document.getElementById("theme-select");
     if (!select) return;
+    const errorBox = document.getElementById("theme-error");
 
-    function applyTheme(theme) {
-      if (theme && theme !== "gootti") {
-        document.documentElement.setAttribute("data-theme", theme);
-      } else {
-        document.documentElement.removeAttribute("data-theme");
+    const data = await getJson("/api/admin/themes");
+    select.innerHTML = "";
+    data.themes.forEach((theme) => {
+      const opt = document.createElement("option");
+      opt.value = theme.slug;
+      opt.textContent = theme.name;
+      select.appendChild(opt);
+    });
+    select.value = data.active;
+
+    select.addEventListener("change", async () => {
+      errorBox.textContent = "";
+      try {
+        await putJson("/api/admin/themes", { slug: select.value });
+        window.location.reload();
+      } catch (err) {
+        errorBox.textContent = err.message;
       }
-    }
-
-    const current = localStorage.getItem("kahvikassa-theme") || "gootti";
-    select.value = current;
-    applyTheme(current);
-
-    select.addEventListener("change", () => {
-      localStorage.setItem("kahvikassa-theme", select.value);
-      applyTheme(select.value);
     });
   }
 

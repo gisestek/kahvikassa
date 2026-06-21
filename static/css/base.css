@@ -1,51 +1,7 @@
-:root {
-  --color-bg: #5e0001;
-  --color-bg-dark: #2a0001;
-  --color-black: #100000;
-  --color-dark-red: #3a0a0a;
-  --color-gold: #c9a227;
-  --color-gold-bright: #e8c75e;
-  --color-text: #f1e6c8;
-  --color-danger: #8b0000;
-  --font-display: Georgia, "Times New Roman", serif;
-}
-
-/* Moderni teema: teräksenharmaa, sama rakenne, eri muuttujat. Kaikki
-   komponentit nojaavat näihin custom propertyihin, niin koko sivusto
-   vaihtaa ilmettä tällä yhdellä lohkolla. */
-[data-theme="moderni"] {
-  --color-bg: #2b2f33;
-  --color-bg-dark: #16181a;
-  --color-black: #0f1112;
-  --color-dark-red: #3d4348;
-  --color-gold: #8a97a3;
-  --color-gold-bright: #cfd6dc;
-  --color-text: #e8eaed;
-  --color-danger: #b3433a;
-  --font-display: "Segoe UI", system-ui, -apple-system, sans-serif;
-}
-
-/* Maavoimat (M05): sama muuttujarakenne, ja lisäksi pikselöity camo-kuvio
-   taustalla. Kuvio on yksi käsin piirretty SVG-tiili data-URI:na, ei
-   ulkoista kuvatiedostoa — toistetaan CSS background-repeatilla. */
-[data-theme="maavoimat"] {
-  --color-bg: rgb(75, 83, 32);
-  --color-bg-dark: rgb(47, 47, 31);
-  --color-black: rgb(28, 28, 20);
-  --color-dark-red: rgb(92, 74, 51);
-  --color-gold: rgb(168, 153, 104);
-  --color-gold-bright: rgb(212, 200, 150);
-  --color-text: rgb(233, 228, 208);
-  --color-danger: rgb(139, 58, 58);
-  --font-display: Tahoma, Verdana, sans-serif;
-}
-
-[data-theme="maavoimat"] body {
-  background-color: rgb(75, 83, 32);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' fill='rgb(75,83,32)'/%3E%3Crect x='0' y='0' width='16' height='8' fill='rgb(138,139,107)'/%3E%3Crect x='16' y='0' width='8' height='16' fill='rgb(47,47,31)'/%3E%3Crect x='32' y='0' width='16' height='8' fill='rgb(92,74,51)'/%3E%3Crect x='48' y='8' width='16' height='16' fill='rgb(138,139,107)'/%3E%3Crect x='8' y='16' width='8' height='8' fill='rgb(92,74,51)'/%3E%3Crect x='24' y='16' width='16' height='8' fill='rgb(47,47,31)'/%3E%3Crect x='0' y='24' width='8' height='16' fill='rgb(47,47,31)'/%3E%3Crect x='16' y='24' width='16' height='8' fill='rgb(92,74,51)'/%3E%3Crect x='40' y='24' width='8' height='16' fill='rgb(138,139,107)'/%3E%3Crect x='48' y='32' width='16' height='16' fill='rgb(47,47,31)'/%3E%3Crect x='0' y='40' width='16' height='8' fill='rgb(138,139,107)'/%3E%3Crect x='24' y='32' width='8' height='16' fill='rgb(92,74,51)'/%3E%3Crect x='8' y='48' width='16' height='8' fill='rgb(47,47,31)'/%3E%3Crect x='32' y='48' width='16' height='16' fill='rgb(138,139,107)'/%3E%3Crect x='0' y='56' width='8' height='8' fill='rgb(92,74,51)'/%3E%3C/svg%3E");
-  background-size: 96px 96px;
-  background-repeat: repeat;
-}
+/* Rakenne- ja komponenttityylit. Ei väriarvoja suoraan tässä tiedostossa —
+   kaikki nojaa custom propertyihin (--color-*, --font-display), joiden arvot
+   tulevat aktiivisesta teematiedostosta (static/css/active-theme.css).
+   Uutta teemaa lisättäessä tätä tiedostoa ei tarvitse koskea. */
 
 * {
   box-sizing: border-box;
@@ -55,7 +11,7 @@ html, body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  background: radial-gradient(ellipse at top, var(--color-dark-red), var(--color-bg) 60%, var(--color-bg-dark));
+  background: var(--color-page-background, radial-gradient(ellipse at top, var(--color-dark-red), var(--color-bg) 60%, var(--color-bg-dark)));
   color: var(--color-text);
   font-family: var(--font-display);
 }
@@ -382,7 +338,7 @@ a:hover {
 /* ---------- Forms (supply / admin) ---------- */
 
 form.panel {
-  background: rgba(16, 0, 0, 0.5);
+  background: var(--color-panel-bg, rgba(16, 0, 0, 0.5));
   border: 1px solid var(--color-gold);
   border-radius: 10px;
   padding: 1.2em;

@@ -2,12 +2,13 @@
 {% block title %}Asetukset — Ylläpito{% endblock %}
 {% block admin_content %}
   <h2>Teema</h2>
-  <p class="muted">Vaikuttaa koko sivustoon (kioski + ylläpito), tallennetaan tähän selaimeen.</p>
-  <select id="theme-select">
-    <option value="gootti">Gootti (oletus)</option>
-    <option value="moderni">Moderni (teräksenharmaa)</option>
-    <option value="maavoimat">Maavoimat (M05)</option>
-  </select>
+  <p class="muted">
+    Vaikuttaa koko sivustoon, kaikille käyttäjille (kioski + ylläpito). Uuden teeman
+    lisäys ei vaadi koodimuutosta — riittää pudottaa uusi CSS-tiedosto
+    <code>static/css/themes/</code>-kansioon ja päivittää sivu.
+  </p>
+  <select id="theme-select"></select>
+  <p class="error-message" id="theme-error"></p>
 
   <h2>Kuukausimaksu</h2>
   <p class="muted">

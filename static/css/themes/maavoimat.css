@@ -1,0 +1,26 @@
+/* THEME_NAME: Maavoimat (M05) */
+:root {
+  --color-bg: rgb(75, 83, 32);
+  --color-bg-dark: rgb(47, 47, 31);
+  --color-black: rgb(20, 20, 14);
+  --color-dark-red: rgb(58, 62, 38);
+  --color-gold: rgb(196, 184, 140);
+  --color-gold-bright: rgb(230, 224, 196);
+  --color-text: rgb(238, 235, 220);
+  --color-danger: rgb(168, 70, 60);
+  /* Selvästi tummempi ja peittävämpi kuin muissa teemoissa, koska lomakkeiden
+     täytyy erottua selvästi camo-kuviosta jäädäkseen luettavaksi. */
+  --color-panel-bg: rgba(10, 10, 6, 0.88);
+}
+
+/* Tumma kerros SVG-camo-kuvion päällä, jotta teksti pysyy luettavana suoraan
+   taustaa vasten eikä vain lomakepaneeleiden sisällä. */
+body {
+  background-color: rgb(75, 83, 32);
+  background-image:
+    linear-gradient(rgba(12, 13, 8, 0.62), rgba(12, 13, 8, 0.62)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Crect width='64' height='64' fill='rgb(75,83,32)'/%3E%3Crect x='0' y='0' width='16' height='8' fill='rgb(138,139,107)'/%3E%3Crect x='16' y='0' width='8' height='16' fill='rgb(47,47,31)'/%3E%3Crect x='32' y='0' width='16' height='8' fill='rgb(92,74,51)'/%3E%3Crect x='48' y='8' width='16' height='16' fill='rgb(138,139,107)'/%3E%3Crect x='8' y='16' width='8' height='8' fill='rgb(92,74,51)'/%3E%3Crect x='24' y='16' width='16' height='8' fill='rgb(47,47,31)'/%3E%3Crect x='0' y='24' width='8' height='16' fill='rgb(47,47,31)'/%3E%3Crect x='16' y='24' width='16' height='8' fill='rgb(92,74,51)'/%3E%3Crect x='40' y='24' width='8' height='16' fill='rgb(138,139,107)'/%3E%3Crect x='48' y='32' width='16' height='16' fill='rgb(47,47,31)'/%3E%3Crect x='0' y='40' width='16' height='8' fill='rgb(138,139,107)'/%3E%3Crect x='24' y='32' width='8' height='16' fill='rgb(92,74,51)'/%3E%3Crect x='8' y='48' width='16' height='8' fill='rgb(47,47,31)'/%3E%3Crect x='32' y='48' width='16' height='16' fill='rgb(138,139,107)'/%3E%3Crect x='0' y='56' width='8' height='8' fill='rgb(92,74,51)'/%3E%3C/svg%3E");
+  background-size: auto, 96px 96px;
+  background-repeat: repeat, repeat;
+  background-blend-mode: normal, normal;
+}

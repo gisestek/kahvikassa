@@ -4,3 +4,4 @@ __pycache__/
 .env
 .claude/
 VERSION
+static/css/active-theme.css

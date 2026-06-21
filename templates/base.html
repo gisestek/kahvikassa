@@ -4,14 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %}Kahvikassa{% endblock %}</title>
-  <script>
-    // Asetetaan teema ennen CSS:n latautumista, ettei väärä teema välähdä näkyviin.
-    (function () {
-      var theme = localStorage.getItem("kahvikassa-theme");
-      if (theme && theme !== "gootti") document.documentElement.setAttribute("data-theme", theme);
-    })();
-  </script>
-  <link rel="stylesheet" href="/static/css/style.css?v={{ static_version }}" />
+  <link rel="stylesheet" href="/static/css/base.css?v={{ static_version }}" />
+  <!-- Generoitu tiedosto (ks. app/services/theme_service.py) — sisältää
+       valitun teeman väri/fontti-muuttujat. Ladataan base.css:n jälkeen,
+       jotta esim. maavoimat-teeman tausta voittaa base.css:n oletuksen. -->
+  <link rel="stylesheet" href="/static/css/active-theme.css?v={{ static_version }}" />
 </head>
 <body>
   <div class="page-shell">

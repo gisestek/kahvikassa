@@ -24,3 +24,6 @@ class AppSettings(Base):
     monthly_fee_active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     signal_sender_number: Mapped[str | None] = mapped_column(String(32), nullable=True)
     signal_group_id: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    # Slug matching a filename under static/css/themes/. Drives which CSS file
+    # gets copied to static/css/active-theme.css (see app/services/theme_service.py).
+    active_theme: Mapped[str] = mapped_column(String(50), nullable=False, default="gootti")

@@ -52,6 +52,10 @@ Kaikki rajapinnat palauttavat JSON:ia. Istunto kulkee `kahvikassa_session`-eväs
 - `POST /api/admin/settings/charge-monthly-fee` — veloittaa asetetun kuukausimaksun kertaalleen kaikilta
   aktiivisilta käyttäjiltä (vain jos `monthly_fee_active` on päällä ja summa > 0). Ei ajastettu — admin
   käynnistää manuaalisesti. Palauttaa `{ "charged_count": int }`.
+- `GET /api/admin/themes` — palauttaa `{ "themes": [{ "slug": str, "name": str }], "active": str }`.
+  Lista luetaan `static/css/themes/*.css`-tiedostoista ajossa.
+- `PUT /api/admin/themes` — body `{ "slug": str }`. Kopioi vastaavan teematiedoston
+  `static/css/active-theme.css`:ksi kaikille käyttäjille yhteisesti ja tallentaa valinnan.
 
 ## Virheet
 
