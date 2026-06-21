@@ -716,6 +716,33 @@
     }
   }
 
+  // ---------------- Theme toggle ----------------
+  function initThemeToggle() {
+    const button = document.getElementById("theme-toggle-button");
+    if (!button) return;
+
+    function currentTheme() {
+      return localStorage.getItem("kahvikassa-theme") === "moderni" ? "moderni" : "gootti";
+    }
+
+    function applyTheme(theme) {
+      if (theme === "moderni") {
+        document.documentElement.setAttribute("data-theme", "moderni");
+      } else {
+        document.documentElement.removeAttribute("data-theme");
+      }
+      button.textContent = "Vaihda teema (nykyinen: " + theme + ")";
+    }
+
+    button.addEventListener("click", () => {
+      const next = currentTheme() === "moderni" ? "gootti" : "moderni";
+      localStorage.setItem("kahvikassa-theme", next);
+      applyTheme(next);
+    });
+
+    applyTheme(currentTheme());
+  }
+
   initUsersPage();
   initCategoriesPage();
   initProductsPage();
@@ -725,4 +752,5 @@
   initAnalyticsPage();
   initSettingsPage();
   initVersionDisplay();
+  initThemeToggle();
 })();

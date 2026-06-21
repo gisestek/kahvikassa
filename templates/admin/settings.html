@@ -1,6 +1,10 @@
 {% extends "admin/base.html" %}
 {% block title %}Asetukset — Ylläpito{% endblock %}
 {% block admin_content %}
+  <h2>Teema</h2>
+  <p class="muted">Vaikuttaa koko sivustoon (kioski + ylläpito), tallennetaan tähän selaimeen.</p>
+  <button type="button" id="theme-toggle-button">Vaihda teema</button>
+
   <h2>Kuukausimaksu</h2>
   <p class="muted">
     Kuukausimaksu ei veloitu automaattisesti — ylläpitäjä käynnistää veloituksen

@@ -10,6 +10,21 @@
   --font-display: Georgia, "Times New Roman", serif;
 }
 
+/* Moderni teema: teräksenharmaa, sama rakenne, eri muuttujat. Kaikki
+   komponentit nojaavat näihin custom propertyihin, niin koko sivusto
+   vaihtaa ilmettä tällä yhdellä lohkolla. */
+[data-theme="moderni"] {
+  --color-bg: #2b2f33;
+  --color-bg-dark: #16181a;
+  --color-black: #0f1112;
+  --color-dark-red: #3d4348;
+  --color-gold: #8a97a3;
+  --color-gold-bright: #cfd6dc;
+  --color-text: #e8eaed;
+  --color-danger: #b3433a;
+  --font-display: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
 * {
   box-sizing: border-box;
 }
