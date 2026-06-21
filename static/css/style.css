@@ -63,10 +63,17 @@ a:hover {
 
 /* ---------- Logo / landing ---------- */
 
+/* Logo and content sit side by side as real flex siblings, instead of the
+   logo floating absolutely over the content — that previously let the logo
+   visually overlap the first user button instead of making room for it. */
+.landing-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 3vw;
+}
+
 .logo-wrapper {
-  position: absolute;
-  top: 2vh;
-  left: 2vw;
+  flex: 0 0 auto;
   margin: 0;
 }
 
@@ -76,6 +83,11 @@ a:hover {
   min-width: 90px;
   height: auto;
   filter: drop-shadow(0 0 12px rgba(201, 162, 39, 0.5));
+}
+
+.landing-content {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 /* Below this width the logo is dropped entirely rather than crowding the

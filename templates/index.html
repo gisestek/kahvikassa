@@ -1,29 +1,33 @@
 {% extends "base.html" %}
 {% block title %}Kahvikassa{% endblock %}
 {% block content %}
-  <div class="logo-wrapper">
-    <img src="/static/img/logo.png" alt="Kahvikassa" />
-  </div>
+  <div class="landing-layout">
+    <div class="logo-wrapper">
+      <img src="/static/img/logo.png" alt="Kahvikassa" />
+    </div>
 
-  <div class="landing-header">
-    <a class="instructions-link" href="/info.html">Ohjeet</a>
-  </div>
+    <div class="landing-content">
+      <div class="landing-header">
+        <a class="instructions-link" href="/info.html">Ohjeet</a>
+      </div>
 
-  <h2 style="text-align:center;">Valitse nimesi</h2>
+      <h2 style="text-align:center;">Valitse nimesi</h2>
 
-  <div class="user-grid" id="user-grid">
-    {% for user in users %}
-      <button class="user-button" data-user-id="{{ user.id }}" data-user-name="{{ user.full_name }}">
-        {{ user.full_name }}
-      </button>
-    {% endfor %}
-  </div>
+      <div class="user-grid" id="user-grid">
+        {% for user in users %}
+          <button class="user-button" data-user-id="{{ user.id }}" data-user-name="{{ user.full_name }}">
+            {{ user.full_name }}
+          </button>
+        {% endfor %}
+      </div>
 
-  <div class="pin-panel" id="pin-panel">
-    <h3 id="pin-panel-title"></h3>
-    <input type="password" inputmode="numeric" pattern="[0-9]*" class="pin-input" id="pin-input" maxlength="8" autofocus />
-    <button type="button" class="btn-confirm" id="pin-submit">Kirjaudu</button>
-    <div class="error-message" id="pin-error"></div>
+      <div class="pin-panel" id="pin-panel">
+        <h3 id="pin-panel-title"></h3>
+        <input type="password" inputmode="numeric" pattern="[0-9]*" class="pin-input" id="pin-input" maxlength="8" autofocus />
+        <button type="button" class="btn-confirm" id="pin-submit">Kirjaudu</button>
+        <div class="error-message" id="pin-error"></div>
+      </div>
+    </div>
   </div>
 {% endblock %}
 {% block scripts %}
