@@ -60,7 +60,11 @@ kyseisen tuotteen määrää korissa yhdellä.
   voi asettaa hälytysrajan — kun varasto putoaa rajan alle, lähtee kerran
   Signal-ilmoitus (jos Signal-integraatio on määritetty, ks. INSTALL.md).
 - **Tapahtumaloki**: suodata käyttäjän, tapahtumatyypin, tuotteen, varastotuotteen
-  ja päivämäärävälin mukaan. Rivejä ei voi muokata tai poistaa — virheet korjataan
+  ja päivämäärävälin mukaan. Loki kattaa kaikki tietokantaan/Signaliin tehdyt
+  muutokset — myös käyttäjien, tuoteryhmien, myyntituotteiden ja varastotuotteiden
+  hallinnan sekä PIN-koodin vaihdot (tyyppi "Hallintamuutos"). Näkymä on sivutettu
+  100 riviä kerrallaan, ja suodattimiin täsmäävät rivit voi ladata CSV-tiedostona
+  "Lataa CSV" -linkistä. Rivejä ei voi muokata tai poistaa — virheet korjataan
   uudella, kuittaavalla kirjauksella (esim. uusi INVENTORY_CORRECTION).
 - **Tilastot**: viikkokohtainen myynti, hävikki, käyttäjäkohtainen kulutus,
   maidonkulutus, ja kahvipannujen keittohetkien tilastollinen arvio (ei vaikuta

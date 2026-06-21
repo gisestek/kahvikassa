@@ -16,6 +16,12 @@ class AuditEventType(str, enum.Enum):
     WASTAGE = "WASTAGE"
     ADMIN_ADJUSTMENT = "ADMIN_ADJUSTMENT"
     MONTHLY_FEE = "MONTHLY_FEE"
+    # Catch-all for admin/self-service CRUD that isn't a financial or stock
+    # event of its own (user/category/product/inventory-item management,
+    # threshold and settings changes, PIN changes). Kept as one generic type
+    # with a descriptive `description` rather than one enum value per entity,
+    # so adding a new admin feature never requires another enum migration.
+    SYSTEM_CHANGE = "SYSTEM_CHANGE"
 
 
 class AuditLogEntry(Base):

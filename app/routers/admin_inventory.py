@@ -43,7 +43,7 @@ async def get_inventory(_: User = Depends(require_admin_user), db: AsyncSession 
 async def put_low_stock_threshold(
     inventory_item_id: int,
     payload: LowStockThresholdRequest,
-    _: User = Depends(require_admin_user),
+    admin_user: User = Depends(require_admin_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     try:
@@ -52,7 +52,7 @@ async def put_low_stock_threshold(
         raise HTTPException(status_code=400, detail="Virheellinen raja-arvo") from exc
 
     try:
-        item = await update_low_stock_threshold(db, inventory_item_id, threshold)
+        item = await update_low_stock_threshold(db, admin_user, inventory_item_id, threshold)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
@@ -61,9 +61,11 @@ async def put_low_stock_threshold(
 
 @router.post("")
 async def post_inventory_item(
-    payload: InventoryItemUpsert, _: User = Depends(require_admin_user), db: AsyncSession = Depends(get_db_session)
+    payload: InventoryItemUpsert,
+    admin_user: User = Depends(require_admin_user),
+    db: AsyncSession = Depends(get_db_session),
 ):
-    item = await create_inventory_item(db, payload.name, payload.unit)
+    item = await create_inventory_item(db, admin_user, payload.name, payload.unit)
     return {"id": item.id}
 
 

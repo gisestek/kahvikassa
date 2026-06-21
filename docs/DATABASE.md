@@ -68,7 +68,7 @@ vähintään yksi `recipe_lines`-rivi.
 | id                 | serial PK       | |
 | occurred_at        | timestamptz     | Indeksoitu |
 | user_id            | FK → users, nullable | |
-| event_type         | enum            | PURCHASE, SUPPLY_RESTOCK, INVENTORY_CORRECTION, WASTAGE, ADMIN_ADJUSTMENT, MONTHLY_FEE |
+| event_type         | enum            | PURCHASE, SUPPLY_RESTOCK, INVENTORY_CORRECTION, WASTAGE, ADMIN_ADJUSTMENT, MONTHLY_FEE, SYSTEM_CHANGE |
 | sales_product_id   | FK → sales_products, nullable | |
 | inventory_item_id  | FK → inventory_items, nullable | |
 | quantity           | numeric(12,3), nullable | Positiivinen = lisäys, negatiivinen = vähennys |
@@ -77,6 +77,14 @@ vähintään yksi `recipe_lines`-rivi.
 | extra_data         | jsonb           | |
 
 Taulu on append-only: rivejä ei koskaan päivitetä tai poisteta sovelluskoodista.
+
+`SYSTEM_CHANGE` on yleiskäyttöinen tapahtumatyyppi kaikelle muulle hallinta- ja
+itsepalvelumuutokselle, joka ei ole raha- tai varastotapahtuma omine tyyppeineen:
+käyttäjien, tuoteryhmien, myyntituotteiden ja varastotuotteiden luonti/muokkaus,
+hälytysrajan ja asetusten päivitys, sekä PIN-koodin vaihto. `description`-kenttä
+kertoo mitä tehtiin, `extra_data` sisältää koneluettavan `{"entity", "action", "id"}`
+-rakenteen. Tämä pitää enum-tyypin pienenä — uusi hallintatoiminto ei tarvitse
+omaa migraatiota.
 
 ### `app_settings`
 

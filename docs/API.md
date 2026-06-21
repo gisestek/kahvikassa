@@ -38,7 +38,11 @@ Kaikki rajapinnat palauttavat JSON:ia. Istunto kulkee `kahvikassa_session`-eväs
 - `PUT /api/admin/inventory/{id}/low-stock-threshold` — body `{ "threshold": str|null }`. Asettaa rajan, jonka
   alle pudottuaan tuotteesta lähetetään Signal-ilmoitus kerran (nollautuu kun varasto nousee yli rajan).
   `null` poistaa hälytyksen käytöstä.
-- `GET /api/admin/audit` — query-parametrit: `user_id`, `event_type`, `sales_product_id`, `inventory_item_id`, `date_from`, `date_to`.
+- `GET /api/admin/audit` — query-parametrit: `page` (1-pohjainen, 100 riviä/sivu), `user_id`, `event_type`,
+  `sales_product_id`, `inventory_item_id`, `date_from`, `date_to`. Palauttaa
+  `{ "items": [...], "total": int, "page": int, "page_size": 100, "total_pages": int }`.
+- `GET /api/admin/audit/export.csv` — samat suodatinparametrit (ei sivutusta — vie kaikki suodattimeen
+  täsmäävät rivit), palauttaa UTF-8 BOM -etuliitteisen CSV-tiedoston (`Content-Disposition: attachment`).
 - `GET /api/admin/analytics/sales-volume`, `/wastage`, `/user-usage`, `/milk-consumption`, `/coffee-pots` — kaikki hyväksyvät `weeks_back`-parametrin.
 - `GET/PUT /api/admin/settings` — kuukausimaksun asetukset ja Signal-yliajot: `{ "monthly_fee_amount": str,
   "monthly_fee_active": bool, "signal_sender_number": str|null, "signal_group_id": str|null }`. Signal-kentät

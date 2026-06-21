@@ -10,6 +10,7 @@ from app.models.recipe import RecipeLine
 from app.models.settings import AppSettings
 from app.models.user import User
 from app.security import hash_pin
+from app.services.audit_service import log_system_change
 from app.services.notification_service import format_monthly_fee_message, send_signal_message
 
 # id of the singleton app_settings row, seeded by migration 0003.
@@ -21,15 +22,22 @@ async def list_all_users(db: AsyncSession) -> list[User]:
     return list(result.scalars().all())
 
 
-async def create_user(db: AsyncSession, full_name: str, pin: str, is_admin: bool = False) -> User:
+async def create_user(db: AsyncSession, admin_user: User, full_name: str, pin: str, is_admin: bool = False) -> User:
     user = User(full_name=full_name, pin_hash=hash_pin(pin), is_admin=is_admin)
     db.add(user)
+    await log_system_change(db, admin_user, f"Käyttäjä luotu: {full_name}", {"entity": "user", "action": "create"})
     await db.commit()
     return user
 
 
 async def update_user(
-    db: AsyncSession, user_id: int, full_name: str, is_active: bool, is_admin: bool, new_pin: str | None
+    db: AsyncSession,
+    admin_user: User,
+    user_id: int,
+    full_name: str,
+    is_active: bool,
+    is_admin: bool,
+    new_pin: str | None,
 ) -> User:
     user = await db.get(User, user_id)
     if user is None:
@@ -39,6 +47,10 @@ async def update_user(
     user.is_admin = is_admin
     if new_pin:
         user.pin_hash = hash_pin(new_pin)
+    pin_note = " (PIN nollattu)" if new_pin else ""
+    await log_system_change(
+        db, admin_user, f"Käyttäjä päivitetty: {full_name}{pin_note}", {"entity": "user", "action": "update", "id": user_id}
+    )
     await db.commit()
     return user
 
@@ -77,6 +89,7 @@ async def get_app_settings(db: AsyncSession) -> AppSettings:
 
 async def update_app_settings(
     db: AsyncSession,
+    admin_user: User,
     monthly_fee_amount: Decimal,
     monthly_fee_active: bool,
     signal_sender_number: str | None,
@@ -87,6 +100,12 @@ async def update_app_settings(
     settings.monthly_fee_active = monthly_fee_active
     settings.signal_sender_number = signal_sender_number or None
     settings.signal_group_id = signal_group_id or None
+    await log_system_change(
+        db,
+        admin_user,
+        f"Asetukset päivitetty: kuukausimaksu {monthly_fee_amount} € ({'käytössä' if monthly_fee_active else 'pois käytöstä'})",
+        {"entity": "settings", "action": "update"},
+    )
     await db.commit()
     return settings
 
@@ -125,7 +144,10 @@ async def list_categories(db: AsyncSession) -> list[ProductCategory]:
     return list(result.scalars().all())
 
 
-async def upsert_category(db: AsyncSession, category_id: int | None, name: str, sort_order: int) -> ProductCategory:
+async def upsert_category(
+    db: AsyncSession, admin_user: User, category_id: int | None, name: str, sort_order: int
+) -> ProductCategory:
+    is_new = category_id is None
     if category_id is not None:
         category = await db.get(ProductCategory, category_id)
         if category is None:
@@ -135,6 +157,13 @@ async def upsert_category(db: AsyncSession, category_id: int | None, name: str, 
     else:
         category = ProductCategory(name=name, sort_order=sort_order)
         db.add(category)
+
+    await log_system_change(
+        db,
+        admin_user,
+        f"Tuoteryhmä {'luotu' if is_new else 'päivitetty'}: {name}",
+        {"entity": "category", "action": "create" if is_new else "update"},
+    )
     await db.commit()
     return category
 
@@ -151,6 +180,7 @@ async def list_sales_products(db: AsyncSession) -> list[SalesProduct]:
 
 async def upsert_sales_product(
     db: AsyncSession,
+    admin_user: User,
     product_id: int | None,
     name: str,
     category_id: int,
@@ -162,6 +192,7 @@ async def upsert_sales_product(
     """Creates or fully replaces a sales product and its recipe. Recipe lines
     are replaced wholesale on every save rather than diffed, since recipes are
     small and this keeps the admin UI simple and avoids partial-update bugs."""
+    is_new = product_id is None
     if product_id is not None:
         product = await db.get(SalesProduct, product_id, options=[selectinload(SalesProduct.recipe_lines)])
         if product is None:
@@ -186,5 +217,11 @@ async def upsert_sales_product(
             )
         )
 
+    await log_system_change(
+        db,
+        admin_user,
+        f"Myyntituote {'luotu' if is_new else 'päivitetty'}: {name}",
+        {"entity": "product", "action": "create" if is_new else "update"},
+    )
     await db.commit()
     return product

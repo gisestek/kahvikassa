@@ -36,7 +36,7 @@ async def get_settings(_: User = Depends(require_admin_user), db: AsyncSession =
 @router.put("")
 async def put_settings(
     payload: SettingsUpdateRequest,
-    _: User = Depends(require_admin_user),
+    admin_user: User = Depends(require_admin_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     try:
@@ -45,7 +45,7 @@ async def put_settings(
         raise HTTPException(status_code=400, detail="Virheellinen summa") from exc
 
     settings = await update_app_settings(
-        db, amount, payload.monthly_fee_active, payload.signal_sender_number, payload.signal_group_id
+        db, admin_user, amount, payload.monthly_fee_active, payload.signal_sender_number, payload.signal_group_id
     )
     return {
         "monthly_fee_amount": str(settings.monthly_fee_amount),

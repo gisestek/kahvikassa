@@ -41,10 +41,13 @@ async def get_products(_: User = Depends(require_admin_user), db: AsyncSession =
 
 @router.post("")
 async def post_product(
-    payload: SalesProductUpsert, _: User = Depends(require_admin_user), db: AsyncSession = Depends(get_db_session)
+    payload: SalesProductUpsert,
+    admin_user: User = Depends(require_admin_user),
+    db: AsyncSession = Depends(get_db_session),
 ):
     product = await upsert_sales_product(
         db,
+        admin_user,
         None,
         payload.name,
         payload.category_id,
@@ -60,11 +63,12 @@ async def post_product(
 async def put_product(
     product_id: int,
     payload: SalesProductUpsert,
-    _: User = Depends(require_admin_user),
+    admin_user: User = Depends(require_admin_user),
     db: AsyncSession = Depends(get_db_session),
 ):
     await upsert_sales_product(
         db,
+        admin_user,
         product_id,
         payload.name,
         payload.category_id,

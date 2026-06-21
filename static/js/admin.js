@@ -463,7 +463,13 @@
       inventorySelect.appendChild(opt);
     });
 
-    async function refresh() {
+    const prevButton = document.getElementById("af-prev-page");
+    const nextButton = document.getElementById("af-next-page");
+    const pageIndicator = document.getElementById("af-page-indicator");
+    const exportLink = document.getElementById("af-export-csv");
+    let currentPage = 1;
+
+    function buildFilterParams() {
       const params = new URLSearchParams();
       if (userSelect.value) params.set("user_id", userSelect.value);
       if (document.getElementById("af-event-type").value) params.set("event_type", document.getElementById("af-event-type").value);
@@ -471,10 +477,21 @@
       if (inventorySelect.value) params.set("inventory_item_id", inventorySelect.value);
       if (document.getElementById("af-date-from").value) params.set("date_from", document.getElementById("af-date-from").value);
       if (document.getElementById("af-date-to").value) params.set("date_to", document.getElementById("af-date-to").value);
+      return params;
+    }
 
-      const entries = await getJson("/api/admin/audit?" + params.toString());
+    function updateExportLink() {
+      const params = buildFilterParams();
+      exportLink.href = "/api/admin/audit/export.csv?" + params.toString();
+    }
+
+    async function refresh() {
+      const params = buildFilterParams();
+      params.set("page", currentPage);
+
+      const data = await getJson("/api/admin/audit?" + params.toString());
       tbody.innerHTML = "";
-      entries.forEach((e) => {
+      data.items.forEach((e) => {
         const tr = document.createElement("tr");
         tr.innerHTML =
           "<td>" + e.occurred_at.replace("T", " ").slice(0, 19) + "</td>" +
@@ -487,9 +504,29 @@
           "<td>" + (e.description || "") + "</td>";
         tbody.appendChild(tr);
       });
+
+      pageIndicator.textContent =
+        "Sivu " + data.page + " / " + data.total_pages + " (" + data.total + " tapahtumaa)";
+      prevButton.disabled = data.page <= 1;
+      nextButton.disabled = data.page >= data.total_pages;
+      updateExportLink();
     }
 
-    document.getElementById("af-apply").addEventListener("click", refresh);
+    document.getElementById("af-apply").addEventListener("click", () => {
+      currentPage = 1;
+      refresh();
+    });
+    prevButton.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage -= 1;
+        refresh();
+      }
+    });
+    nextButton.addEventListener("click", () => {
+      currentPage += 1;
+      refresh();
+    });
+
     await refresh();
   }
 

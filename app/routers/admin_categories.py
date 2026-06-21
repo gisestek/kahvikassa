@@ -23,9 +23,11 @@ async def get_categories(_: User = Depends(require_admin_user), db: AsyncSession
 
 @router.post("")
 async def post_category(
-    payload: CategoryRequest, _: User = Depends(require_admin_user), db: AsyncSession = Depends(get_db_session)
+    payload: CategoryRequest,
+    admin_user: User = Depends(require_admin_user),
+    db: AsyncSession = Depends(get_db_session),
 ):
-    category = await upsert_category(db, None, payload.name, payload.sort_order)
+    category = await upsert_category(db, admin_user, None, payload.name, payload.sort_order)
     return {"id": category.id}
 
 
@@ -33,8 +35,8 @@ async def post_category(
 async def put_category(
     category_id: int,
     payload: CategoryRequest,
-    _: User = Depends(require_admin_user),
+    admin_user: User = Depends(require_admin_user),
     db: AsyncSession = Depends(get_db_session),
 ):
-    await upsert_category(db, category_id, payload.name, payload.sort_order)
+    await upsert_category(db, admin_user, category_id, payload.name, payload.sort_order)
     return {"ok": True}

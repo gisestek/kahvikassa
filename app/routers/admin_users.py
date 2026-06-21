@@ -47,9 +47,11 @@ async def get_users(_: User = Depends(require_admin_user), db: AsyncSession = De
 
 @router.post("")
 async def post_user(
-    payload: UserCreateRequest, _: User = Depends(require_admin_user), db: AsyncSession = Depends(get_db_session)
+    payload: UserCreateRequest,
+    admin_user: User = Depends(require_admin_user),
+    db: AsyncSession = Depends(get_db_session),
 ):
-    user = await create_user(db, payload.full_name, payload.pin, payload.is_admin)
+    user = await create_user(db, admin_user, payload.full_name, payload.pin, payload.is_admin)
     return {"id": user.id}
 
 
@@ -57,10 +59,12 @@ async def post_user(
 async def put_user(
     user_id: int,
     payload: UserUpdateRequest,
-    _: User = Depends(require_admin_user),
+    admin_user: User = Depends(require_admin_user),
     db: AsyncSession = Depends(get_db_session),
 ):
-    await update_user(db, user_id, payload.full_name, payload.is_active, payload.is_admin, payload.new_pin)
+    await update_user(
+        db, admin_user, user_id, payload.full_name, payload.is_active, payload.is_admin, payload.new_pin
+    )
     return {"ok": True}
 
 

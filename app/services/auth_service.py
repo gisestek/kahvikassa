@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.user import User
 from app.security import hash_pin, verify_pin
+from app.services.audit_service import log_system_change
 
 
 async def list_active_users(db: AsyncSession) -> list[User]:
@@ -26,4 +27,5 @@ async def change_own_pin(db: AsyncSession, user: User, current_pin: str, new_pin
         raise ValueError("Uuden PIN-koodin on oltava vähintään 4 merkkiä")
 
     user.pin_hash = hash_pin(new_pin)
+    await log_system_change(db, user, "PIN-koodi vaihdettu", {"entity": "user", "action": "pin_change"})
     await db.commit()
