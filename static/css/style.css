@@ -98,19 +98,24 @@ a:hover {
   }
 }
 
-.landing-header {
+.landing-footer {
   text-align: center;
-  margin-bottom: 2vh;
+  margin-top: 3vh;
 }
 
-.instructions-link {
+.instructions-link-subtle {
   display: inline-block;
-  margin: 1vh auto 3vh;
-  padding: 0.6em 1.4em;
-  border: 2px solid var(--color-gold);
-  border-radius: 6px;
-  background: var(--color-black);
-  font-weight: bold;
+  padding: 0.3em 0.9em;
+  color: var(--color-gold);
+  opacity: 0.75;
+  font-size: 0.9em;
+  border-bottom: 1px solid transparent;
+}
+
+.instructions-link-subtle:hover {
+  opacity: 1;
+  border-bottom-color: var(--color-gold);
+  text-decoration: none;
 }
 
 .info-image {

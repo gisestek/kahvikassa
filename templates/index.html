@@ -7,11 +7,7 @@
     </div>
 
     <div class="landing-content">
-      <div class="landing-header">
-        <a class="instructions-link" href="/info.html">Ohjeet</a>
-      </div>
-
-      <h2 style="text-align:center;">Valitse nimesi</h2>
+      <h2 style="text-align:center;">Valitse käyttäjä</h2>
 
       <div class="user-grid" id="user-grid">
         {% for user in users %}
@@ -28,6 +24,10 @@
         <div class="error-message" id="pin-error"></div>
       </div>
     </div>
+  </div>
+
+  <div class="landing-footer">
+    <a class="instructions-link-subtle" href="/info.html">Ohjeet</a>
   </div>
 {% endblock %}
 {% block scripts %}
