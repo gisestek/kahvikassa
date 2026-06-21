@@ -1,0 +1,10 @@
+{% extends "admin/base.html" %}
+{% block title %}Ylläpito — Kahvikassa{% endblock %}
+{% block admin_content %}
+  <p>Valitse hallintanäkymä yllä olevasta valikosta.</p>
+
+  <p class="muted" id="version-display">Versio: …</p>
+{% endblock %}
+{% block scripts %}
+  <script src="/static/js/admin.js?v={{ static_version }}"></script>
+{% endblock %}

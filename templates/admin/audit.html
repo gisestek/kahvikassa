@@ -1,0 +1,53 @@
+{% extends "admin/base.html" %}
+{% block title %}Tapahtumaloki — Ylläpito{% endblock %}
+{% block admin_content %}
+  <h2>Tapahtumaloki</h2>
+
+  <div class="filter-bar">
+    <div>
+      <label for="af-user">Käyttäjä</label>
+      <select id="af-user"><option value="">Kaikki</option></select>
+    </div>
+    <div>
+      <label for="af-event-type">Tapahtumatyyppi</label>
+      <select id="af-event-type">
+        <option value="">Kaikki</option>
+        <option value="PURCHASE">Ostotapahtuma</option>
+        <option value="SUPPLY_RESTOCK">Tavaran tuonti</option>
+        <option value="INVENTORY_CORRECTION">Inventaariokorjaus</option>
+        <option value="WASTAGE">Hävikki</option>
+        <option value="ADMIN_ADJUSTMENT">Ylläpidon korjaus</option>
+        <option value="MONTHLY_FEE">Kuukausimaksu</option>
+      </select>
+    </div>
+    <div>
+      <label for="af-product">Myyntituote</label>
+      <select id="af-product"><option value="">Kaikki</option></select>
+    </div>
+    <div>
+      <label for="af-inventory">Varastotuote</label>
+      <select id="af-inventory"><option value="">Kaikki</option></select>
+    </div>
+    <div>
+      <label for="af-date-from">Alkaen</label>
+      <input type="date" id="af-date-from" />
+    </div>
+    <div>
+      <label for="af-date-to">Päättyen</label>
+      <input type="date" id="af-date-to" />
+    </div>
+    <div>
+      <button type="button" id="af-apply">Suodata</button>
+    </div>
+  </div>
+
+  <table class="data-table" id="audit-table">
+    <thead>
+      <tr><th>Aika</th><th>Käyttäjä</th><th>Tyyppi</th><th>Tuote</th><th>Varastotuote</th><th>Määrä</th><th>Summa</th><th>Kommentti</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+{% endblock %}
+{% block scripts %}
+  <script src="/static/js/admin.js?v={{ static_version }}"></script>
+{% endblock %}

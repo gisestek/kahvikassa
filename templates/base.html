@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Kahvikassa{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/style.css?v={{ static_version }}" />
+</head>
+<body>
+  <div class="page-shell">
+    {% block content %}{% endblock %}
+  </div>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

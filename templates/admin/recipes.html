@@ -1,0 +1,14 @@
+{% extends "admin/base.html" %}
+{% block title %}Reseptit — Ylläpito{% endblock %}
+{% block admin_content %}
+  <h2>Reseptit</h2>
+  <p class="muted">Reseptien muokkaus tapahtuu Myyntituotteet-sivulla tuotteen yhteydessä. Tässä näet kaikki reseptit.</p>
+
+  <table class="data-table" id="recipes-table">
+    <thead><tr><th>Tuote</th><th>Ainesosat</th></tr></thead>
+    <tbody></tbody>
+  </table>
+{% endblock %}
+{% block scripts %}
+  <script src="/static/js/admin.js?v={{ static_version }}"></script>
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "admin/base.html" %}
+{% block title %}Asetukset — Ylläpito{% endblock %}
+{% block admin_content %}
+  <h2>Kuukausimaksu</h2>
+  <p class="muted">
+    Kuukausimaksu ei veloitu automaattisesti — ylläpitäjä käynnistää veloituksen
+    manuaalisesti "Veloita nyt kaikilta" -painikkeella, esimerkiksi kerran kuukaudessa.
+    Tämä estää vahingossa tapahtuvan kaksoisveloituksen.
+  </p>
+
+  <form class="panel" id="settings-form">
+    <label><input type="checkbox" id="sf-active" /> Kuukausimaksu käytössä</label>
+    <label for="sf-amount">Maksun suuruus (€)</label>
+    <input type="text" id="sf-amount" inputmode="decimal" placeholder="esim. 5.00" />
+    <button type="submit" style="margin-top:1em;">Tallenna</button>
+  </form>
+
+  <button type="button" id="charge-now-button">Veloita nyt kaikilta aktiivisilta käyttäjiltä</button>
+  <p class="error-message" id="settings-error"></p>
+  <p id="settings-result"></p>
+
+  <h2>Signal-ilmoitukset</h2>
+
+  <h3>1. Linkitä Signal-tili</h3>
+  <p class="muted">
+    Linkitä uuden lähettäjän Signal-tili toissijaiseksi laitteeksi: paina "Luo QR-koodi",
+    avaa puhelimessa Signal → Asetukset → Linkitetyt laitteet → Linkitä uusi laite, ja
+    skannaa koodi <strong>välittömästi</strong> — se vanhenee noin minuutissa.
+  </p>
+  <div class="panel" style="max-width:320px;">
+    <label for="qr-device-name">Laitteen nimi</label>
+    <input type="text" id="qr-device-name" value="Kahvikassa-Bot" />
+    <button type="button" id="generate-qr-button" style="margin-top:1em;">Luo QR-koodi</button>
+    <p class="error-message" id="qr-error"></p>
+    <div id="qr-image-wrapper" style="margin-top:1em; text-align:center;"></div>
+  </div>
+
+  <h3>2. Hae numero ja ryhmän ID</h3>
+  <p class="muted">Kun tili on linkitetty, hae sen numero ja sen jäsenryhmät alta.</p>
+  <div class="panel" style="max-width:480px;">
+    <button type="button" id="lookup-accounts-button">Hae linkitetyt numerot</button>
+    <div id="accounts-result" style="margin-top:0.6em;"></div>
+    <label for="groups-number-select" style="margin-top:1em;">Hae ryhmät numerolle</label>
+    <select id="groups-number-select"></select>
+    <button type="button" id="lookup-groups-button" style="margin-top:0.6em;">Hae ryhmät</button>
+    <div id="groups-result" style="margin-top:0.6em;"></div>
+    <p class="error-message" id="lookup-error"></p>
+  </div>
+
+  <h3>3. Tallenna asetukset</h3>
+  <p class="muted">
+    Tyhjä kenttä = käytä palvelimen .env-tiedoston oletusarvoa. Yllä olevat "Käytä"-painikkeet
+    täyttävät kentät valmiiksi, mutta tallennus tapahtuu vasta tästä.
+  </p>
+  <form class="panel" id="signal-form">
+    <label for="sig-number">Lähettäjän numero</label>
+    <input type="text" id="sig-number" placeholder="+358..." />
+    <label for="sig-group">Ryhmän ID</label>
+    <input type="text" id="sig-group" placeholder="group.xxxxx..." />
+    <button type="submit" style="margin-top:1em;">Tallenna</button>
+  </form>
+  <p class="error-message" id="signal-error"></p>
+{% endblock %}
+{% block scripts %}
+  <script src="/static/js/admin.js?v={{ static_version }}"></script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Ohjeet — Kahvikassa{% endblock %}
+{% block content %}
+  <h1>Ohjeet</h1>
+  <p><a href="/">&larr; Takaisin etusivulle</a></p>
+
+  <h2>Ostaminen</h2>
+  <ol>
+    <li>Valitse nimesi etusivulta.</li>
+    <li>Syötä PIN-koodisi ja paina Enter.</li>
+    <li>Napauta haluamiasi tuotteita — ne lisätään ostoskoriin.</li>
+    <li>Paina <strong>OK</strong> vahvistaaksesi ostoksen, tai <strong>Peruuta</strong> jos haluat keskeyttää.</li>
+    <li>Järjestelmä kirjaa sinut automaattisesti ulos oston jälkeen.</li>
+  </ol>
+
+  <h2>Tavaran tuominen ("Toin tavaraa")</h2>
+  <p>
+    Jos tuot kahvikassaan tarvikkeita (esim. kahvia, maitoa, suodattimia), kirjaudu sisään ja valitse
+    "Toin tavaraa" -linkki. Voit täydentää olemassa olevaa varastotuotetta tai luoda uuden.
+    Ilmoita tuotu määrä ja kokonaishinta — saldosi hyvitetään automaattisesti summalla.
+  </p>
+
+  <h2>Saldo</h2>
+  <p>
+    Saldosi näkyy kioskinäkymässä. Ostokset vähentävät saldoa, tavaran tuominen kasvattaa sitä.
+    Kaikki tapahtumat tallennetaan pysyvään tapahtumalokiin.
+  </p>
+
+  <h2>Yhteydenotto</h2>
+  <p>Ongelmatilanteissa ota yhteyttä kahvikassan ylläpitäjään.</p>
+
+  <img class="info-image" src="/static/img/info.png" alt="" />
+{% endblock %}

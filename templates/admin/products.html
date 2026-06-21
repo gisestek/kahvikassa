@@ -1,0 +1,34 @@
+{% extends "admin/base.html" %}
+{% block title %}Myyntituotteet — Ylläpito{% endblock %}
+{% block admin_content %}
+  <h2>Myyntituotteet</h2>
+
+  <table class="data-table" id="products-table">
+    <thead><tr><th>Nimi</th><th>Ryhmä</th><th>Hinta</th><th>Aktiivinen</th><th>Myynnissä</th><th>Resepti</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h3>Uusi / muokattava tuote</h3>
+  <form class="panel" id="product-form" style="max-width:640px;">
+    <input type="hidden" id="pf-id" />
+    <label for="pf-name">Nimi</label>
+    <input type="text" id="pf-name" required />
+    <label for="pf-category">Tuoteryhmä</label>
+    <select id="pf-category"></select>
+    <label for="pf-price">Hinta (€)</label>
+    <input type="text" id="pf-price" inputmode="decimal" placeholder="esim. 0.80" required />
+    <label><input type="checkbox" id="pf-active" checked /> Aktiivinen</label>
+    <label><input type="checkbox" id="pf-on-sale" checked /> Myynnissä</label>
+
+    <h4>Resepti</h4>
+    <div id="pf-recipe-lines"></div>
+    <button type="button" id="pf-add-line" style="margin-top:0.4em;">+ Lisää ainesosa</button>
+
+    <div class="error-message" id="product-error"></div>
+    <button type="submit" style="margin-top:1em;">Tallenna tuote</button>
+    <button type="button" id="pf-reset" style="margin-top:1em;">Uusi tuote</button>
+  </form>
+{% endblock %}
+{% block scripts %}
+  <script src="/static/js/admin.js?v={{ static_version }}"></script>
+{% endblock %}

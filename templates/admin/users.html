@@ -1,0 +1,27 @@
+{% extends "admin/base.html" %}
+{% block title %}Käyttäjät — Ylläpito{% endblock %}
+{% block admin_content %}
+  <h2>Käyttäjät</h2>
+
+  <table class="data-table" id="users-table">
+    <thead>
+      <tr><th>Nimi</th><th>Saldo</th><th>Aktiivinen</th><th>Admin</th><th></th><th>Saldon muutos</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <h3>Uusi käyttäjä</h3>
+  <form class="panel" id="new-user-form">
+    <label for="nu-name">Nimi</label>
+    <input type="text" id="nu-name" required />
+    <label for="nu-pin">PIN-koodi</label>
+    <input type="text" id="nu-pin" inputmode="numeric" required />
+    <label><input type="checkbox" id="nu-admin" /> Ylläpitäjä</label>
+    <button type="submit" style="margin-top:1em;">Luo käyttäjä</button>
+  </form>
+
+  <div class="error-message" id="users-error"></div>
+{% endblock %}
+{% block scripts %}
+  <script src="/static/js/admin.js?v={{ static_version }}"></script>
+{% endblock %}

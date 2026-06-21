@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Kioski — Kahvikassa{% endblock %}
+{% block content %}
+  <div class="kiosk-header">
+    <div class="kiosk-header-left">
+      <h1>Tervetuloa, {{ current_user.full_name }}</h1>
+      <a class="supply-link" href="/toin-tavaraa">Toin tavaraa</a>
+    </div>
+    <div class="kiosk-header-right">
+      <div class="balance-display" id="balance-display">Saldo: …</div>
+      <button type="button" class="btn-logout" id="btn-logout">Kirjaudu ulos</button>
+    </div>
+  </div>
+
+  <div class="cart-actions">
+    <button class="btn-confirm" id="btn-ok">OK</button>
+    <button class="btn-cancel" id="btn-cancel">Peruuta</button>
+  </div>
+
+  <ul class="cart-list" id="cart-list"></ul>
+  <div class="cart-total" id="cart-total">Yhteensä: 0.00 €</div>
+
+  <div id="product-groups"></div>
+
+  <div class="error-message" id="kiosk-error"></div>
+
+  <p style="margin-top: 1.5em;">
+    {% if current_user.is_admin %}<a class="supply-link" href="/admin">Ylläpito</a>{% endif %}
+    <a class="supply-link" href="/vaihda-pin">Vaihda PIN</a>
+  </p>
+{% endblock %}
+{% block scripts %}
+  <script src="/static/js/kiosk.js?v={{ static_version }}"></script>
+{% endblock %}

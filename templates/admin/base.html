@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="kiosk-header">
+    <h1>Kahvikassa — Ylläpito</h1>
+    <div class="kiosk-header-right">
+      <span class="muted">{{ current_user.full_name }}</span>
+      <a class="supply-link" href="/kioski">Kioskiin</a>
+      <button type="button" class="btn-logout" id="btn-admin-logout">Kirjaudu ulos</button>
+    </div>
+  </div>
+
+  <nav class="admin-nav">
+    <a href="/admin">Etusivu</a>
+    <a href="/admin/kayttajat">Käyttäjät</a>
+    <a href="/admin/tuoteryhmat">Tuoteryhmät</a>
+    <a href="/admin/myyntituotteet">Myyntituotteet</a>
+    <a href="/admin/reseptit">Reseptit</a>
+    <a href="/admin/varasto">Varasto</a>
+    <a href="/admin/tapahtumaloki">Tapahtumaloki</a>
+    <a href="/admin/tilastot">Tilastot</a>
+    <a href="/admin/asetukset">Asetukset</a>
+  </nav>
+
+  {% block admin_content %}{% endblock %}
+
+  <script>
+    document.getElementById("btn-admin-logout").addEventListener("click", async () => {
+      try {
+        await fetch("/api/auth/logout", { method: "POST" });
+      } finally {
+        window.location.href = "/";
+      }
+    });
+  </script>
+{% endblock %}

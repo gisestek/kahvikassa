@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Vaihda PIN — Kahvikassa{% endblock %}
+{% block content %}
+  <h1>Vaihda PIN-koodi</h1>
+  <p class="muted">Kirjautuneena: {{ current_user.full_name }}</p>
+
+  <form class="panel" id="change-pin-form">
+    <label for="cp-current">Nykyinen PIN-koodi</label>
+    <input type="password" inputmode="numeric" pattern="[0-9]*" id="cp-current" required />
+    <label for="cp-new">Uusi PIN-koodi</label>
+    <input type="password" inputmode="numeric" pattern="[0-9]*" id="cp-new" minlength="4" required />
+    <label for="cp-new-repeat">Uusi PIN-koodi uudelleen</label>
+    <input type="password" inputmode="numeric" pattern="[0-9]*" id="cp-new-repeat" minlength="4" required />
+
+    <div class="error-message" id="change-pin-error"></div>
+    <div id="change-pin-success" style="color: var(--color-gold-bright); min-height: 1.4em;"></div>
+
+    <button type="submit" style="margin-top:1em;">Vaihda PIN</button>
+  </form>
+
+  <p><a href="/kioski">&larr; Takaisin kioskiin</a></p>
+{% endblock %}
+{% block scripts %}
+  <script src="/static/js/change_pin.js?v={{ static_version }}"></script>
+{% endblock %}

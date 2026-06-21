@@ -1,0 +1,56 @@
+{% extends "admin/base.html" %}
+{% block title %}Varasto — Ylläpito{% endblock %}
+{% block admin_content %}
+  <h2>Varasto</h2>
+  <p class="muted">
+    Hälytysraja: kun laskennallinen varasto putoaa rajan alle, järjestelmä lähettää
+    kerran Signal-ilmoituksen (jos Signal-integraatio on määritetty palvelimella).
+    Tyhjä raja = ei hälytystä.
+  </p>
+
+  <table class="data-table" id="inventory-table">
+    <thead><tr><th>Tuote</th><th>Yksikkö</th><th>Laskennallinen varasto</th><th>Hälytysraja (Signal)</th><th></th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h3>Uusi varastotuote</h3>
+  <form class="panel" id="new-inventory-item-form">
+    <label for="ni-name">Nimi</label>
+    <input type="text" id="ni-name" required />
+    <label for="ni-unit">Yksikkö</label>
+    <select id="ni-unit">
+      <option value="g">g</option>
+      <option value="ml">ml</option>
+      <option value="pcs">pcs</option>
+    </select>
+    <button type="submit" style="margin-top:1em;">Luo</button>
+  </form>
+
+  <h3>Inventaario (stocktake)</h3>
+  <p class="muted">Fyysinen laskenta on absoluuttinen totuus ja korvaa laskennallisen varaston.</p>
+  <form class="panel" id="correction-form">
+    <label for="cf-item">Varastotuote</label>
+    <select id="cf-item"></select>
+    <label for="cf-counted">Laskettu määrä</label>
+    <input type="text" id="cf-counted" inputmode="decimal" required />
+    <label for="cf-description">Kommentti</label>
+    <input type="text" id="cf-description" />
+    <button type="submit" style="margin-top:1em;">Kirjaa inventaario</button>
+  </form>
+
+  <h3>Hävikki</h3>
+  <form class="panel" id="wastage-form">
+    <label for="wf-item">Varastotuote</label>
+    <select id="wf-item"></select>
+    <label for="wf-quantity">Määrä</label>
+    <input type="text" id="wf-quantity" inputmode="decimal" required />
+    <label for="wf-description">Kommentti</label>
+    <input type="text" id="wf-description" />
+    <button type="submit" style="margin-top:1em;">Kirjaa hävikki</button>
+  </form>
+
+  <div class="error-message" id="inventory-error"></div>
+{% endblock %}
+{% block scripts %}
+  <script src="/static/js/admin.js?v={{ static_version }}"></script>
+{% endblock %}

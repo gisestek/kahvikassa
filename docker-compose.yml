@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: kahvikassa
+      POSTGRES_PASSWORD: kahvikassa
+      POSTGRES_DB: kahvikassa
+    volumes:
+      - kahvikassa_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kahvikassa"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+asyncpg://kahvikassa:kahvikassa@db:5432/kahvikassa
+      SECRET_KEY: ${SECRET_KEY:-change-me-in-production}
+      SESSION_COOKIE_SECURE: "false"
+      SIGNAL_REST_API_URL: http://signal-cli:8080
+      SIGNAL_SENDER_NUMBER: ${SIGNAL_SENDER_NUMBER:-}
+      SIGNAL_GROUP_ID: ${SIGNAL_GROUP_ID:-}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./static:/app/static
+
+  # Self-hosted Signal bot transport. Not registered with its own number —
+  # linked as a secondary device to an existing Signal account, so outgoing
+  # notifications appear as sent by that account's owner. No port published
+  # externally; only the `web` service talks to it, over the compose network.
+  signal-cli:
+    image: bbernhard/signal-cli-rest-api:latest
+    restart: unless-stopped
+    environment:
+      MODE: json-rpc
+    volumes:
+      - kahvikassa_signal_data:/home/.local/share/signal-cli
+
+volumes:
+  kahvikassa_pgdata:
+  kahvikassa_signal_data:

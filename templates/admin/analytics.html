@@ -1,0 +1,42 @@
+{% extends "admin/base.html" %}
+{% block title %}Tilastot — Ylläpito{% endblock %}
+{% block admin_content %}
+  <h2>Tilastot</h2>
+
+  <h3>Tuotteiden myynti (8 viikkoa)</h3>
+  <table class="data-table" id="sales-volume-table">
+    <thead><tr><th>Tuote</th><th>Myyty kpl</th><th>Liikevaihto</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h3>Hävikki (8 viikkoa)</h3>
+  <table class="data-table" id="wastage-table">
+    <thead><tr><th>Varastotuote</th><th>Yksikkö</th><th>Määrä</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h3>Käyttäjäkohtainen kulutus (8 viikkoa)</h3>
+  <table class="data-table" id="user-usage-table">
+    <thead><tr><th>Käyttäjä</th><th>Ostokertoja</th><th>Käytetty yhteensä</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h3>Maidonkulutus viikoittain</h3>
+  <table class="data-table" id="milk-table">
+    <thead><tr><th>Viikko</th><th>Maitoa (ml, arvio)</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <h3>Kahvipannujen arvio (4 viikkoa)</h3>
+  <p class="muted">
+    Tilastollinen arvio — pannun keittohetkiä ei kirjata järjestelmään suoraan, vaan ne
+    pääteltään ryhmittelemällä lähekkäin tehdyt kahviostot. Arvio ei vaikuta varastoon.
+  </p>
+  <table class="data-table" id="coffee-pots-table">
+    <thead><tr><th>Arvioitu keittohetki</th><th>Kupit ryhmässä</th><th>Viimeinen kuppi</th></tr></thead>
+    <tbody></tbody>
+  </table>
+{% endblock %}
+{% block scripts %}
+  <script src="/static/js/admin.js?v={{ static_version }}"></script>
+{% endblock %}
