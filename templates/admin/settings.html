@@ -3,7 +3,10 @@
 {% block admin_content %}
   <h2>Teema</h2>
   <p class="muted">Vaikuttaa koko sivustoon (kioski + ylläpito), tallennetaan tähän selaimeen.</p>
-  <button type="button" id="theme-toggle-button">Vaihda teema</button>
+  <select id="theme-select">
+    <option value="gootti">Gootti (oletus)</option>
+    <option value="moderni">Moderni (teräksenharmaa)</option>
+  </select>
 
   <h2>Kuukausimaksu</h2>
   <p class="muted">

@@ -8,7 +8,7 @@
     // Asetetaan teema ennen CSS:n latautumista, ettei väärä teema välähdä näkyviin.
     (function () {
       var theme = localStorage.getItem("kahvikassa-theme");
-      if (theme === "moderni") document.documentElement.setAttribute("data-theme", "moderni");
+      if (theme && theme !== "gootti") document.documentElement.setAttribute("data-theme", theme);
     })();
   </script>
   <link rel="stylesheet" href="/static/css/style.css?v={{ static_version }}" />

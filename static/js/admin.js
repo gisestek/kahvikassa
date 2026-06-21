@@ -716,31 +716,29 @@
     }
   }
 
-  // ---------------- Theme toggle ----------------
+  // ---------------- Theme selector ----------------
+  // New themes only need a new <option> here plus a matching
+  // [data-theme="..."] block in style.css — nothing else changes.
   function initThemeToggle() {
-    const button = document.getElementById("theme-toggle-button");
-    if (!button) return;
-
-    function currentTheme() {
-      return localStorage.getItem("kahvikassa-theme") === "moderni" ? "moderni" : "gootti";
-    }
+    const select = document.getElementById("theme-select");
+    if (!select) return;
 
     function applyTheme(theme) {
-      if (theme === "moderni") {
-        document.documentElement.setAttribute("data-theme", "moderni");
+      if (theme && theme !== "gootti") {
+        document.documentElement.setAttribute("data-theme", theme);
       } else {
         document.documentElement.removeAttribute("data-theme");
       }
-      button.textContent = "Vaihda teema (nykyinen: " + theme + ")";
     }
 
-    button.addEventListener("click", () => {
-      const next = currentTheme() === "moderni" ? "gootti" : "moderni";
-      localStorage.setItem("kahvikassa-theme", next);
-      applyTheme(next);
-    });
+    const current = localStorage.getItem("kahvikassa-theme") || "gootti";
+    select.value = current;
+    applyTheme(current);
 
-    applyTheme(currentTheme());
+    select.addEventListener("change", () => {
+      localStorage.setItem("kahvikassa-theme", select.value);
+      applyTheme(select.value);
+    });
   }
 
   initUsersPage();
