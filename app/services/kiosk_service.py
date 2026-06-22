@@ -18,20 +18,36 @@ CATEGORY_DISPLAY_ORDER = ["Perustuotteet", "Naposteltavat", "Muut"]
 async def get_sellable_categories(db: AsyncSession) -> list[ProductCategory]:
     """Returns categories with their currently sellable products attached.
 
-    A product is shown on the kiosk only if it is active, marked on sale, AND
-    has at least one recipe line — otherwise checkout could never deduct stock
-    correctly, so we hide it rather than risk an inconsistent sale.
+    A product is shown on the kiosk only if it is active, marked on sale, has
+    at least one recipe line, AND every ingredient it needs is actually in
+    stock (> 0). The stock check is computed fresh on every request rather
+    than stored on the product — so a product disappears the moment an
+    ingredient hits zero and reappears automatically the moment it's
+    restocked, with no separate "reactivate" step for an admin to forget.
+    This also doubles as a quick fix for inventory miscounts: if the kiosk
+    shows nothing for an item that's physically in the fridge, bringing in a
+    couple of units at 0 € (Toin tavaraa) both corrects the stock count and
+    makes the product sellable again in one action.
     """
     result = await db.execute(
         select(ProductCategory)
-        .options(selectinload(ProductCategory.sales_products).selectinload(SalesProduct.recipe_lines))
+        .options(
+            selectinload(ProductCategory.sales_products)
+            .selectinload(SalesProduct.recipe_lines)
+            .selectinload(RecipeLine.inventory_item)
+        )
         .order_by(ProductCategory.sort_order)
     )
     categories = list(result.scalars().all())
 
     for category in categories:
         category.sales_products = [
-            p for p in category.sales_products if p.is_active and p.is_on_sale and len(p.recipe_lines) > 0
+            p
+            for p in category.sales_products
+            if p.is_active
+            and p.is_on_sale
+            and len(p.recipe_lines) > 0
+            and all(rl.inventory_item.quantity_in_stock > 0 for rl in p.recipe_lines)
         ]
 
     categories.sort(

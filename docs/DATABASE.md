@@ -49,8 +49,12 @@ PostgreSQL. Skeema hallitaan Alembic-migraatioilla (`alembic/versions/`).
 | is_on_sale   | boolean       | |
 | extra_data   | jsonb         | |
 
-Tuote näkyy kioskissa vain kun `is_active = true`, `is_on_sale = true`, ja sillä on
-vähintään yksi `recipe_lines`-rivi.
+Tuote näkyy kioskissa vain kun `is_active = true`, `is_on_sale = true`, sillä on
+vähintään yksi `recipe_lines`-rivi, JA kaikkia reseptin raaka-aineita on varastossa
+enemmän kuin 0. Tämä viimeinen ehto lasketaan aina pyynnön hetkellä — ei tallenneta
+mihinkään — niin tuote katoaa kioskista automaattisesti kun raaka-aine loppuu ja
+ilmestyy takaisin automaattisesti kun sitä tuodaan lisää, ilman erillistä
+"aktivoi uudelleen" -askelta ylläpitäjälle.
 
 ### `recipe_lines` (Reseptit)
 

@@ -1,0 +1,17 @@
+/* THEME_NAME: Blue Lagoon */
+:root {
+  --color-bg: #0e3a4f;
+  --color-bg-dark: #062028;
+  --color-black: #04161c;
+  --color-dark-red: #155267;
+  --color-gold: #7ec8e3;
+  --color-gold-bright: #cdeefb;
+  --color-text: #eaf7fb;
+  --color-danger: #c9645f;
+  --color-panel-bg: rgba(6, 32, 40, 0.65);
+  --font-display: "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Ei erillistä body-ylikirjoitusta — base.css:n oletusgradientti
+   (radial-gradient ylhäältä) muuttuu näillä muuttujilla luonnostaan
+   rauhalliseksi laguunisiniseksi liu'uksi, ei tarvita camo-tyylistä kuviota. */

@@ -38,6 +38,12 @@ kyseisen tuotteen määrää korissa yhdellä.
    lokiin, ja käyttäjä palaa kioskinäkymään (ei kirjaudu ulos — tavaran tuonnin
    jälkeen on tavallista jatkaa esim. kahvin ostamisella).
 
+**Vinkki inventaariovirheen korjaamiseen:** jos tuote on kadonnut kioskista vaikka
+sitä on oikeasti jäljellä (esim. jääkaapissa on energiajuomia, mutta varastolaskuri
+näyttää nollaa), riittää tuoda puuttuva määrä sisään hintaan 0 €. Tämä korjaa
+laskennallisen varastomäärän ja tekee tuotteen samalla heti taas ostettavaksi —
+ei tarvita erillistä ylläpitotoimenpidettä.
+
 ## 5. PIN-koodin vaihtaminen
 
 1. Kirjaudu sisään ja napauta kioskinäkymän "Vaihda PIN" -linkkiä.

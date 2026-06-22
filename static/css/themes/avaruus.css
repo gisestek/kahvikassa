@@ -1,0 +1,34 @@
+/* THEME_NAME: Avaruus */
+:root {
+  --color-bg: #14123a;
+  --color-bg-dark: #050414;
+  --color-black: #020108;
+  --color-dark-red: #2d1b4e;
+  --color-gold: #9d7bf0;
+  --color-gold-bright: #c9b6ff;
+  --color-text: #e3e1ff;
+  --color-danger: #dc4444;
+  --color-panel-bg: rgba(8, 6, 24, 0.7);
+  --font-display: Consolas, "Courier New", monospace;
+}
+
+/* Tähtikenttä on useita pieniä radial-gradient-pisteitä eri tiilikoissa (ettei
+   tähdet asetu silmiinpistävän säännölliseen ruudukkoon), plus kaksi isompaa
+   sumuhohtoa kiinnitettynä ikkunaan. Ei ulkoista kuvatiedostoa. */
+body {
+  background-color: rgb(5, 4, 20);
+  background-image:
+    radial-gradient(2px 2px at 12% 22%, rgba(255, 255, 255, 0.9), transparent 60%),
+    radial-gradient(1.5px 1.5px at 78% 8%, rgba(255, 255, 255, 0.75), transparent 60%),
+    radial-gradient(1.5px 1.5px at 45% 55%, rgba(255, 255, 255, 0.65), transparent 60%),
+    radial-gradient(2px 2px at 88% 68%, rgba(255, 255, 255, 0.85), transparent 60%),
+    radial-gradient(1.5px 1.5px at 25% 82%, rgba(255, 255, 255, 0.6), transparent 60%),
+    radial-gradient(1.5px 1.5px at 62% 35%, rgba(255, 255, 255, 0.55), transparent 60%),
+    radial-gradient(ellipse at top, rgba(157, 123, 240, 0.32), transparent 55%),
+    radial-gradient(ellipse at bottom right, rgba(56, 189, 248, 0.16), transparent 60%);
+  background-size:
+    220px 220px, 240px 240px, 180px 180px, 260px 260px, 200px 200px, 230px 230px,
+    100% 100%, 100% 100%;
+  background-repeat: repeat, repeat, repeat, repeat, repeat, repeat, no-repeat, no-repeat;
+  background-attachment: fixed, fixed, fixed, fixed, fixed, fixed, fixed, fixed;
+}
